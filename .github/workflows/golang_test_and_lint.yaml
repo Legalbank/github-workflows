@@ -1,0 +1,55 @@
+name: Golang test and lint
+
+on:
+  workflow_call:
+
+jobs:
+  testandlint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-go@v3
+        with:
+          go-version: 1.18
+
+      - run: go version
+        if: ${{ success() }}
+
+      - name: Check out code into the Go module directory
+        if: ${{ success() }}
+        uses: actions/checkout@v3
+
+      #note: golangci-lint step is extremely sensitive to what happens earlier
+      - name: Run golangci-lint
+        if: ${{ success() }}
+        uses: golangci/golangci-lint-action@v3
+        with:
+          version: latest
+          args: -E gosec
+
+      - name: Get dependencies
+        if: ${{ success() }}
+        run: go mod download
+
+      - name: Build Application
+        if: ${{ success() }}
+        run: go build -o ./app ./cmd/main
+
+      - name: Run tests
+        if: ${{ success() }}
+        run: go test -v -covermode=set -coverprofile=coverage.out ./...
+
+      - name: Convert coverage to lcov
+        if: ${{ success() }}
+        uses: jandelgado/gcov2lcov-action@v1
+        with:
+          infile: coverage.out        # optional, default filename is `coverage.out`
+          outfile: coverage.lcov      # optional, default filename is `coverage.lcov`
+
+      - name: Check test coverage
+        if: ${{ success() }}
+        uses: terencetcf/github-actions-lcov-minimum-coverage-checker@v1
+        with:
+          coverage-file: coverage.lcov
+          minimum-coverage: 85
+
+
