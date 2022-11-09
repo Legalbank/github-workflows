@@ -1,0 +1,19 @@
+name: Golang Pull Request (lint & test coverage)
+
+on:
+  workflow_call:
+    secrets:
+      github-token:
+        required: true
+
+jobs:
+  golang-pr-linter:
+    uses: Fiinco/github-workflows/.github/workflows/golang_linter.yaml@main
+    secrets:
+      github-token: ${{ secrets.github-token }}
+
+  golang-pr-test-coverage:
+    uses: Fiinco/github-workflows/.github/workflows/golang_test_coverage.yaml@main
+    secrets:
+      github-token: ${{ secrets.github-token }}
+

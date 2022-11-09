@@ -1,0 +1,35 @@
+name: CloudFormation Deploy
+
+on:
+  workflow_call:
+    secrets:
+      deploy-key-id:
+        required: true
+      deploy-key-value:
+        required: true
+
+env:
+  AWS_REGION: us-east-1
+
+jobs:
+  cloudformation-deploy:
+    name: Deploy to AWS CloudFormation
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.deploy-key-id }}
+          aws-secret-access-key: ${{ secrets.deploy-key-value }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Deploy to AWS CloudFormation
+        uses: aws-actions/aws-cloudformation-github-deploy@v1
+        with:
+          name: ${{ github.event.repository.name }}
+          template: stack.yaml
+          no-fail-on-empty-changeset: "1"
+          capabilities: CAPABILITY_NAMED_IAM

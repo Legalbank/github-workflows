@@ -1,4 +1,4 @@
-name: Golang test coverage
+name: Golang Test Coverage
 
 on:
   workflow_call:
