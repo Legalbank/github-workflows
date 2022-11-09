@@ -8,7 +8,7 @@ on:
 
 jobs:
   golang-pr-linter:
-    uses: Fiinco/github-workflows/.github/workflows/golang_lint.yaml@main
+    uses: Fiinco/github-workflows/.github/workflows/golang_linter.yaml@main
     secrets:
       github-token: ${{ secrets.github-token }}
 
