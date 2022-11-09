@@ -28,10 +28,6 @@ jobs:
         if: ${{ success() }}
         run: git config --global url."https://fiinco:${{ secrets.github-token }}@github.com/Fiinco".insteadOf "https://github.com/Fiinco"
 
-      #- name: Get dependencies
-      #  if: ${{ success() }}
-      #  run: go mod download
-
       - uses: golangci/golangci-lint-action@v3
         if: ${{ success() }}
         with:

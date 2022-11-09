@@ -34,7 +34,7 @@ jobs:
 
       - name: Build Application
         if: ${{ success() }}
-        run: go build -o ./app ./cmd/main
+        run: go build -o ./app/ ./...
 
       - name: Run tests
         if: ${{ success() }}
