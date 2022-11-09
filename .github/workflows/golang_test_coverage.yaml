@@ -1,30 +1,32 @@
-name: Golang test and lint
+name: Golang test coverage
 
 on:
   workflow_call:
+    secrets:
+      github-token:
+        required: true
+
+env:
+  GOPRIVATE: github.com/Fiinco
 
 jobs:
-  testandlint:
+  golang-test-coverage:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
+
       - uses: actions/setup-go@v3
+        if: ${{ success() }}
         with:
           go-version: 1.18
+          cache: true
 
       - run: go version
         if: ${{ success() }}
 
-      - name: Check out code into the Go module directory
+      - name: Grant access to private Go Modules
         if: ${{ success() }}
-        uses: actions/checkout@v3
-
-      #note: golangci-lint step is extremely sensitive to what happens earlier
-      - name: Run golangci-lint
-        if: ${{ success() }}
-        uses: golangci/golangci-lint-action@v3
-        with:
-          version: latest
-          args: -E gosec
+        run: git config --global url."https://fiinco:${{ secrets.github-token }}@github.com/Fiinco".insteadOf "https://github.com/Fiinco"
 
       - name: Get dependencies
         if: ${{ success() }}
