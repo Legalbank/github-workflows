@@ -10,10 +10,13 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Setup Cloud Formation Linter with Latest Version
+        if: ${{ success() }}
         uses: scottbrenner/cfn-lint-action@v2
 
       - name: Print Linter Version
+        if: ${{ success() }}
         run: cfn-lint --version
 
       - name: Run Linter.
+        if: ${{ success() }}
         run: cfn-lint -t ./stack.yaml
