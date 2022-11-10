@@ -4,11 +4,11 @@ on:
   workflow_call:
     inputs:
       minimum-coverage:
-        required: true
+        required: false
         type: string
         default: 90
       go-version:
-        required: true
+        required: false
         type: string
         default: 1.18
     secrets:
