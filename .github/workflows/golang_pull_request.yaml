@@ -1,4 +1,4 @@
-name: Golang Pull Request (lint & test coverage)
+name: Golang Pull Request
 
 on:
   workflow_call:

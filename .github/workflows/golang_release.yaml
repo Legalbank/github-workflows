@@ -1,0 +1,29 @@
+name: Golang Release
+
+on:
+  workflow_call:
+    inputs:
+      cmd-name:
+        required: true
+        type: string
+      version:
+        required: true
+        type: string
+    secrets:
+      github-token:
+        required: true
+      ecr-key-id:
+        required: true
+      ecr-key-value:
+        required: true
+
+jobs:
+  golang-release:
+    uses: Fiinco/github-workflows/.github/workflows/golang_build_to_ecr.yaml@main
+    with:
+      cmd-name: ${{ inputs.cmd-name }}
+      version: ${{ inputs.version }}
+    secrets:
+      github-token: ${{ secrets.github-token }}
+      ecr-key-id: ${{ secrets.ecr-key-id }}
+      ecr-key-value: ${{ secrets.ecr-key-value }}
