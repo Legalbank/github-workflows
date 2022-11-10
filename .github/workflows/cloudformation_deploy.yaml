@@ -2,14 +2,20 @@ name: CloudFormation Deploy
 
 on:
   workflow_call:
+    inputs:
+      aws-region:
+        required: true
+        type: string
+        default: us-east-1
+      cloudformation-filename:
+        required: true
+        type: string
+        default: stack.yaml
     secrets:
       deploy-key-id:
         required: true
       deploy-key-value:
         required: true
-
-env:
-  AWS_REGION: us-east-1
 
 jobs:
   cloudformation-deploy:
@@ -20,16 +26,18 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Configure AWS Credentials
+        if: ${{ success() }}
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.deploy-key-id }}
           aws-secret-access-key: ${{ secrets.deploy-key-value }}
-          aws-region: ${{ env.AWS_REGION }}
+          aws-region: ${{ inputs.aws-region }}
 
       - name: Deploy to AWS CloudFormation
+        if: ${{ success() }}
         uses: aws-actions/aws-cloudformation-github-deploy@v1
         with:
           name: ${{ github.event.repository.name }}
-          template: stack.yaml
+          template: ${{ inputs.cloudformation-filename }}
           no-fail-on-empty-changeset: "1"
           capabilities: CAPABILITY_NAMED_IAM
