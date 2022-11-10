@@ -10,11 +10,11 @@ on:
         required: true
         type: string
       aws-region:
-        required: true
+        required: false
         type: string
         default: us-east-1
       go-version:
-        required: true
+        required: false
         type: string
         default: 1.18
     secrets:
