@@ -41,6 +41,16 @@ jobs:
         if: ${{ success() }}
         run: wget -O .golangci.yml https://raw.githubusercontent.com/Fiinco/github-workflows/main/.golangci.yml
 
+      - name: Get dependencies
+        if: ${{ success() }}
+        run: go mod download
+
+      #No passo de "Grant access to private Go Modules" acima, configuramos o arquivo .git/config com uma informação sensível
+      #Vamos limpar as pastas do git para que as actions de agora em diante não tenham acesso àquela informação
+      - name: Remove .git directory
+        if: ${{ success() }}
+        run: rm -r .git
+
       - uses: golangci/golangci-lint-action@v3
         if: ${{ success() }}
         with:
