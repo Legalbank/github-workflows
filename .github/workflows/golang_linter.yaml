@@ -33,9 +33,18 @@ jobs:
         if: ${{ success() }}
         run: git config --global url."https://fiinco:${{ secrets.github-token }}@github.com/Fiinco".insteadOf "https://github.com/Fiinco"
 
+      - name: Remove any golangci-lint configuration files
+        if: ${{ success() }}
+        run: rm -f .golangci.yml
+
+      - name: Download Fiinco's official golangci-lint configuration file
+        if: ${{ success() }}
+        run: wget -O .golangci.yml https://raw.githubusercontent.com/Fiinco/github-workflows/main/.golangci.yml
+
       - uses: golangci/golangci-lint-action@v3
         if: ${{ success() }}
         with:
+          args: --config .golangci.yml
           version: latest
           skip-pkg-cache: true
           skip-build-cache: true
