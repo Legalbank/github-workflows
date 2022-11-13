@@ -1,0 +1,39 @@
+linters-settings:
+  funlen:
+    lines: 100
+    statements: 50
+  gocyclo:
+    min-complexity: 15
+  lll:
+    line-length: 150
+linters:
+  enable:
+    - asciicheck
+    - bodyclose
+    - depguard
+    - dogsled
+    - errcheck
+    - exportloopref
+    - exhaustive
+    - forbidigo
+    - gosimple
+    - govet
+    - gocritic
+    - goimports
+    - goprintffuncname
+    - gosec
+    - godot
+    - gocognit
+    - gocyclo
+    - gofmt
+    - gofumpt
+    - ineffassign
+    - lll
+    - nakedret
+    - nolintlint
+    - staticcheck
+    - typecheck
+    - stylecheck
+    - unused
+    - unconvert
+    - whitespace
