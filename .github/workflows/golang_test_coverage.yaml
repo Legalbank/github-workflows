@@ -49,6 +49,12 @@ jobs:
         if: ${{ success() }}
         run: go test -v -covermode=set -coverprofile=coverage.out ./...
 
+      #No passo de "Grant access to private Go Modules" acima, configuramos o arquivo .git/config com uma informação sensível
+      #Vamos limpar as pastas do git para que as actions de agora em diante não tenham acesso àquela informação
+      - name: Remove .git directory
+        if: ${{ success() }}
+        run: rm -r .git
+
       - name: Convert coverage to lcov
         if: ${{ success() }}
         uses: jandelgado/gcov2lcov-action@v1
