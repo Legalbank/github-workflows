@@ -61,6 +61,18 @@ jobs:
         if: ${{ success() }}
         run: rm -r .git
 
+      - name: Remove any Dockerfiles
+        if: ${{ success() }}
+        run: rm -f Dockerfile
+
+      - name: Download Fiinco's official Dockerfile for ecs-golang
+        if: ${{ success() && startsWith(github.event.repository.name, 'ecs-go-') }}
+        run: wget -O Dockerfile https://raw.githubusercontent.com/Fiinco/github-workflows/main/Dockerfile-ecs-golang
+
+      - name: Download Fiinco's official Dockerfile for lambda-golang
+        if: ${{ success() && startsWith(github.event.repository.name, 'lambda-go-') }}
+        run: wget -O Dockerfile https://raw.githubusercontent.com/Fiinco/github-workflows/main/Dockerfile-lambda-golang
+
       - name: Configure AWS credentials
         if: ${{ success() }}
         uses: aws-actions/configure-aws-credentials@v1
