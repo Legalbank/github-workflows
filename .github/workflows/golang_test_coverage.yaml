@@ -24,6 +24,13 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Check if test files exist
+        if: ${{ success() }}
+        uses: andstor/file-existence-action@v2
+        with:
+          files: "**/*_test.go"
+          fail: true
+
       - uses: actions/setup-go@v3
         if: ${{ success() }}
         with:
@@ -41,8 +48,9 @@ jobs:
         if: ${{ success() }}
         run: go mod download
 
+      #Go libraries can't be built
       - name: Build Application
-        if: ${{ success() }}
+        if: ${{ success() && (!startsWith(github.event.repository.name, 'lib-go-')) }}
         run: go build -ldflags="-s -w" -o ./app/ ./...
 
       - name: Run tests
