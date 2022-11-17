@@ -6,7 +6,7 @@ on:
       minimum-coverage:
         required: false
         type: string
-        default: 90
+        default: 1
       go-version:
         required: false
         type: string
