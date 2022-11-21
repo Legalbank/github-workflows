@@ -10,7 +10,6 @@ linters:
     - errcheck
     - errorlint
     - execinquery
-    - exhaustruct
     - exportloopref
     - forcetypeassert
     - gocritic
