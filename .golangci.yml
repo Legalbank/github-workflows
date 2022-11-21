@@ -2,18 +2,12 @@ run:
   tests: false
 linters:
   enable:
-    - errcheck
-    - gosimple
-    - govet
-    - ineffassign
-    - staticcheck
-    - typecheck
-    - unused
     - asciicheck
     - bidichk
     - bodyclose
     - dogsled
     - durationcheck
+    - errcheck
     - errorlint
     - execinquery
     - exhaustruct
@@ -23,7 +17,13 @@ linters:
     - gofmt
     - goimports
     - gosec
+    - gosimple
+    - govet
+    - ineffassign
     - nakedret
     - nolintlint
-    - unconvert
+    - staticcheck
     - stylecheck
+    - typecheck
+    - unconvert
+    - unused
