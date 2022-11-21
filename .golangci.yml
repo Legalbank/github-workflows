@@ -1,41 +1,28 @@
 run:
   tests: false
-linters-settings:
-  funlen:
-    lines: 100
-    statements: 50
-  gocyclo:
-    min-complexity: 15
-  lll:
-    line-length: 150
 linters:
   enable:
     - asciicheck
+    - bidichk
     - bodyclose
-    - depguard
     - dogsled
+    - durationcheck
     - errcheck
+    - errorlint
+    - execinquery
     - exportloopref
-    - exhaustive
-    - forbidigo
+    - forcetypeassert
+    - gocritic
+    - gofmt
+    - goimports
+    - gosec
     - gosimple
     - govet
-    - gocritic
-    - goimports
-    - goprintffuncname
-    - gosec
-    - godot
-    - gocognit
-    - gocyclo
-    - gofmt
-    - gofumpt
     - ineffassign
-    - lll
     - nakedret
     - nolintlint
     - staticcheck
-    - typecheck
     - stylecheck
-    - unused
+    - typecheck
     - unconvert
-    - whitespace
+    - unused
