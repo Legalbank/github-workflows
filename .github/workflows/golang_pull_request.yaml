@@ -17,3 +17,8 @@ jobs:
     secrets:
       github-token: ${{ secrets.github-token }}
 
+  golang-pr-private-goproxy-test-build:
+    if: ${{ !startsWith(github.event.repository.name, 'lib-go-') }}
+    uses: Fiinco/github-workflows/.github/workflows/golang_private_goproxy_test_build.yaml@main
+    secrets:
+      github-token: ${{ secrets.github-token }}
