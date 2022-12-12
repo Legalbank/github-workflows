@@ -9,6 +9,4 @@ on:
 jobs:
   cloudformation-pr-linter:
     uses: Fiinco/github-workflows/.github/workflows/cloudformation_linter.yaml@main
-    secrets:
-      github-token: ${{ secrets.github-token }}
 
