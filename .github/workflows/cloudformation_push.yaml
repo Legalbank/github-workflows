@@ -26,6 +26,5 @@ jobs:
       aws-region: ${{ inputs.aws-region }}
       cloudformation-filename: ${{ inputs.cloudformation-filename }}
     secrets:
-      github-token: ${{ secrets.github-token }}
       deploy-key-id: ${{ secrets.deploy-key-id }}
       deploy-key-value: ${{ secrets.deploy-key-value }}
