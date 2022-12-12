@@ -27,5 +27,5 @@ jobs:
       cloudformation-filename: ${{ inputs.cloudformation-filename }}
     secrets:
       github-token: ${{ secrets.github-token }}
-      ecr-key-id: ${{ secrets.ecr-key-id }}
-      ecr-key-value: ${{ secrets.ecr-key-value }}
+      deploy-key-id: ${{ secrets.deploy-key-id }}
+      deploy-key-value: ${{ secrets.deploy-key-value }}
