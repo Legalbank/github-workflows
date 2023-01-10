@@ -3,10 +3,6 @@ name: CloudFormation Deploy
 on:
   workflow_call:
     inputs:
-      aws-region:
-        required: false
-        type: string
-        default: us-east-1
       cloudformation-filename:
         required: false
         type: string
@@ -25,13 +21,21 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Configure AWS Credentials
-        if: ${{ success() }}
+      - name: Configure AWS Credentials (production environment)
+        if: ${{ success() && startsWith(github.event.repository.name, 'infra-prd-') }}
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.deploy-key-id }}
           aws-secret-access-key: ${{ secrets.deploy-key-value }}
-          aws-region: ${{ inputs.aws-region }}
+          aws-region: us-east-1
+
+      - name: Configure AWS Credentials (staging/dev environments)
+        if: ${{ success() && (startsWith(github.event.repository.name, 'infra-prd-') != true) }}
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.deploy-key-id }}
+          aws-secret-access-key: ${{ secrets.deploy-key-value }}
+          aws-region: us-east-2
 
       - name: Deploy to AWS CloudFormation
         if: ${{ success() }}

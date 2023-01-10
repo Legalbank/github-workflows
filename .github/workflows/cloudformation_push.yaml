@@ -3,10 +3,6 @@ name: CloudFormation Push
 on:
   workflow_call:
     inputs:
-      aws-region:
-        required: false
-        type: string
-        default: us-east-1
       cloudformation-filename:
         required: false
         type: string
@@ -23,7 +19,6 @@ jobs:
   cloudformation-push:
     uses: Fiinco/github-workflows/.github/workflows/cloudformation_deploy.yaml@main
     with:
-      aws-region: ${{ inputs.aws-region }}
       cloudformation-filename: ${{ inputs.cloudformation-filename }}
     secrets:
       deploy-key-id: ${{ secrets.deploy-key-id }}
