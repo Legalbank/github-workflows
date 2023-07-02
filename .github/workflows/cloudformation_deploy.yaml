@@ -37,6 +37,14 @@ jobs:
           aws-secret-access-key: ${{ secrets.deploy-key-value }}
           aws-region: us-east-2
 
+      - name: Configure AWS Credentials (sandbox environment)
+        if: ${{ success() && (startsWith(github.event.repository.name, 'infra-sbx-') != true) }}
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.deploy-key-id }}
+          aws-secret-access-key: ${{ secrets.deploy-key-value }}
+          aws-region: us-west-2
+
       - name: Deploy to AWS CloudFormation
         if: ${{ success() }}
         uses: aws-actions/aws-cloudformation-github-deploy@v1
