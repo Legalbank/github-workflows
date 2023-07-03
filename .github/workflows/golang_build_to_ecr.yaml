@@ -73,6 +73,10 @@ jobs:
         if: ${{ success() && startsWith(github.event.repository.name, 'lambda-go-') }}
         run: wget -O Dockerfile https://raw.githubusercontent.com/Fiinco/github-workflows/main/Dockerfile-lambda-golang
 
+      - name: Download Fiinco's official Dockerfile for db-migration
+        if: ${{ success() && startsWith(github.event.repository.name, 'db-') }}
+        run: wget -O Dockerfile https://raw.githubusercontent.com/Fiinco/github-workflows/main/Dockerfile-db-migration
+
       - name: Configure AWS credentials
         if: ${{ success() }}
         uses: aws-actions/configure-aws-credentials@v1
