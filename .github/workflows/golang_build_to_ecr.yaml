@@ -51,8 +51,12 @@ jobs:
         if: ${{ success() }}
         run: go mod download
 
-      - name: Build Application
-        if: ${{ success() }}
+      - name: Build Application (lambda)
+        if: ${{ success() && startsWith(github.event.repository.name, 'lambda-go-') }}
+        run: GOOS=linux GOARCH=amd64 go build -ldflags="-s -w" -o ./app ./cmd/${{ inputs.cmd-name }}
+
+      - name: Build Application (normal)
+        if: ${{ success() && !(startsWith(github.event.repository.name, 'lambda-go-')) }}
         run: go build -ldflags="-s -w" -o ./app ./cmd/${{ inputs.cmd-name }}
 
       #No passo de "Grant access to private Go Modules" acima, configuramos o arquivo .git/config com uma informação sensível
