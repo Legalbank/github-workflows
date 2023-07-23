@@ -2,6 +2,10 @@ name: Golang Pull Request
 
 on:
   workflow_call:
+    inputs:
+      sql-repository:
+        required: false
+        type: string
     secrets:
       github-token:
         required: true
@@ -14,6 +18,8 @@ jobs:
 
   golang-pr-test-coverage:
     uses: Fiinco/github-workflows/.github/workflows/golang_test_coverage.yaml@main
+    with:
+      sql-repository: ${{ inputs.sql-repository }}
     secrets:
       github-token: ${{ secrets.github-token }}
 

@@ -11,16 +11,39 @@ on:
         required: false
         type: string
         default: 1.18
+      sql-repository:
+        required: false
+        type: string
     secrets:
       github-token:
         required: true
 
 env:
   GOPRIVATE: github.com/Fiinco
+  AWS_REGION: disabled #to do: manter isto?
+  DB_HOSTNAME: localhost
+  DB_PORT: 5432
+  DB_DATABASE: postgres
+  DB_USERNAME: postgres
+  DB_PASSWORD: password
 
 jobs:
   golang-test-coverage:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_PASSWORD: password
+          POSTGRES_USER: postgres
+          POSTGRES_DB: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
     steps:
       - uses: actions/checkout@v3
 
@@ -48,10 +71,30 @@ jobs:
         if: ${{ success() }}
         run: go mod download
 
-      #Go libraries can't be built
       - name: Build Application
-        if: ${{ success() && (!startsWith(github.event.repository.name, 'lib-go-')) }}
+        if: ${{ success() && (!startsWith(github.event.repository.name, 'lib-go-')) }} #Go libraries can't be built
         run: go build -ldflags="-s -w" -o ./app/ ./...
+
+      - name: Checkout SQL script for database migration
+        if: ${{ success() && (inputs.sql-repository != '') }}
+        uses: actions/checkout@v3
+        with:
+          repository: Fiinco/${{ inputs.sql-repository }}
+          token: ${{ secrets.github-token }}
+          path: .sql-migration-repo
+          sparse-checkout: sql
+
+      - name: Perform database migration
+        if: ${{ success() && (inputs.sql-repository != '') }}
+        run: >
+          docker run --rm
+          -v ${{ github.workspace }}/.sql-migration-repo/sql:/flyway/sql
+          --network=host
+          flyway/flyway
+          -url=jdbc:postgresql://localhost:5432/postgres?sslmode=disable
+          -user=postgres
+          -password=password
+          migrate
 
       - name: Run tests
         if: ${{ success() }}
