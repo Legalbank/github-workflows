@@ -53,7 +53,7 @@ jobs:
 
       - name: Build Application (lambda)
         if: ${{ success() && startsWith(github.event.repository.name, 'lambda-go-') }}
-        run: GOOS=linux GOARCH=amd64 go build -ldflags="-s -w" -o ./app ./cmd/${{ inputs.cmd-name }}
+        run: GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -ldflags="-s -w" -o ./app ./cmd/${{ inputs.cmd-name }}
 
       - name: Build Application (normal)
         if: ${{ success() && !(startsWith(github.event.repository.name, 'lambda-go-')) }}
