@@ -18,9 +18,9 @@ jobs:
   golang-linter:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      - uses: actions/setup-go@v3
+      - uses: actions/setup-go@v5
         if: ${{ success() }}
         with:
           go-version: ${{ inputs.go-version }}
@@ -51,7 +51,7 @@ jobs:
         if: ${{ success() }}
         run: rm -r .git
 
-      - uses: golangci/golangci-lint-action@v3
+      - uses: golangci/golangci-lint-action@v4
         if: ${{ success() }}
         with:
           args: --config .golangci.yml
