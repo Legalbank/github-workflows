@@ -19,9 +19,9 @@ jobs:
   golang-private-goproxy-test-build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      - uses: actions/setup-go@v3
+      - uses: actions/setup-go@v5
         if: ${{ success() }}
         with:
           go-version: ${{ inputs.go-version }}
@@ -34,7 +34,7 @@ jobs:
         run: git config --global url."https://fiinco:${{ secrets.github-token }}@github.com/Fiinco".insteadOf "https://github.com/Fiinco"
 
       - name: Checkout private goproxy repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: Fiinco/governance-goproxy
           token: ${{ secrets.github-token }}

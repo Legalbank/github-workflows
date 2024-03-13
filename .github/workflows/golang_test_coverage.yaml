@@ -45,16 +45,16 @@ jobs:
         ports:
           - 5432:5432
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Check if test files exist
         if: ${{ success() }}
-        uses: andstor/file-existence-action@v2
+        uses: andstor/file-existence-action@v3
         with:
           files: "**/*_test.go"
           fail: true
 
-      - uses: actions/setup-go@v3
+      - uses: actions/setup-go@v5
         if: ${{ success() }}
         with:
           go-version: ${{ inputs.go-version }}
@@ -77,7 +77,7 @@ jobs:
 
       - name: Checkout SQL script for database migration
         if: ${{ success() && (inputs.sql-repository != '') }}
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: Fiinco/${{ inputs.sql-repository }}
           token: ${{ secrets.github-token }}
