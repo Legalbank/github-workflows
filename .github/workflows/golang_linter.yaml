@@ -12,7 +12,7 @@ on:
         required: true
 
 env:
-  GOPRIVATE: github.com/Fiinco
+  GOPRIVATE: github.com/Legalbank
 
 jobs:
   golang-linter:
@@ -31,15 +31,15 @@ jobs:
 
       - name: Grant access to private Go Modules
         if: ${{ success() }}
-        run: git config --global url."https://fiinco:${{ secrets.github-token }}@github.com/Fiinco".insteadOf "https://github.com/Fiinco"
+        run: git config --global url."https://legalbank:${{ secrets.github-token }}@github.com/Legalbank".insteadOf "https://github.com/Legalbank"
 
       - name: Remove any golangci-lint configuration files
         if: ${{ success() }}
         run: rm -f .golangci.yml
 
-      - name: Download Fiinco's official golangci-lint configuration file
+      - name: Download Legalbank's official golangci-lint configuration file
         if: ${{ success() }}
-        run: wget -O .golangci.yml https://raw.githubusercontent.com/Fiinco/github-workflows/main/.golangci.yml
+        run: wget -O .golangci.yml https://raw.githubusercontent.com/Legalbank/github-workflows/main/.golangci.yml
 
       - name: Get dependencies
         if: ${{ success() }}

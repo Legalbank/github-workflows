@@ -26,7 +26,7 @@ on:
         required: true
 
 env:
-  GOPRIVATE: github.com/Fiinco
+  GOPRIVATE: github.com/Legalbank
 
 jobs:
   golang-build-to-ecr:
@@ -45,7 +45,7 @@ jobs:
 
       - name: Grant access to private Go Modules
         if: ${{ success() }}
-        run: git config --global url."https://fiinco:${{ secrets.github-token }}@github.com/Fiinco".insteadOf "https://github.com/Fiinco"
+        run: git config --global url."https://legalbank:${{ secrets.github-token }}@github.com/Legalbank".insteadOf "https://github.com/Legalbank"
 
       - name: Get dependencies
         if: ${{ success() }}
@@ -69,13 +69,13 @@ jobs:
         if: ${{ success() }}
         run: rm -f Dockerfile
 
-      - name: Download Fiinco's official Dockerfile for ecs-golang
+      - name: Download Legalbank's official Dockerfile for ecs-golang
         if: ${{ success() && startsWith(github.event.repository.name, 'ecs-go-') }}
-        run: wget -O Dockerfile https://raw.githubusercontent.com/Fiinco/github-workflows/main/Dockerfile-ecs-golang
+        run: wget -O Dockerfile https://raw.githubusercontent.com/Legalbank/github-workflows/main/Dockerfile-ecs-golang
 
-      - name: Download Fiinco's official Dockerfile for lambda-golang
+      - name: Download Legalbank's official Dockerfile for lambda-golang
         if: ${{ success() && startsWith(github.event.repository.name, 'lambda-go-') }}
-        run: wget -O Dockerfile https://raw.githubusercontent.com/Fiinco/github-workflows/main/Dockerfile-lambda-golang
+        run: wget -O Dockerfile https://raw.githubusercontent.com/Legalbank/github-workflows/main/Dockerfile-lambda-golang
 
       - name: Configure AWS credentials
         if: ${{ success() }}

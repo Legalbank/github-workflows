@@ -8,5 +8,5 @@ on:
 
 jobs:
   cloudformation-pr-linter:
-    uses: Fiinco/github-workflows/.github/workflows/cloudformation_linter.yaml@main
+    uses: Legalbank/github-workflows/.github/workflows/cloudformation_linter.yaml@main
 
