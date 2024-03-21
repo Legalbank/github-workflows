@@ -12,22 +12,22 @@ on:
 
 jobs:
   golang-pr-linter:
-    uses: Fiinco/github-workflows/.github/workflows/golang_linter.yaml@main
+    uses: Legalbank/github-workflows/.github/workflows/golang_linter.yaml@main
     secrets:
       github-token: ${{ secrets.github-token }}
 
   golang-pr-test-coverage:
-    uses: Fiinco/github-workflows/.github/workflows/golang_test_coverage.yaml@main
+    uses: Legalbank/github-workflows/.github/workflows/golang_test_coverage.yaml@main
     with:
       sql-repository: ${{ inputs.sql-repository }}
     secrets:
       github-token: ${{ secrets.github-token }}
 
   golang-pr-check-title:
-    uses: Fiinco/github-workflows/.github/workflows/golang_check_pr_title.yaml@main
+    uses: Legalbank/github-workflows/.github/workflows/golang_check_pr_title.yaml@main
 
   #golang-pr-private-goproxy-test-build:
   #  if: ${{ !startsWith(github.event.repository.name, 'lib-go-') }}
-  #  uses: Fiinco/github-workflows/.github/workflows/golang_private_goproxy_test_build.yaml@main
+  #  uses: Legalbank/github-workflows/.github/workflows/golang_private_goproxy_test_build.yaml@main
   #  secrets:
   #    github-token: ${{ secrets.github-token }}

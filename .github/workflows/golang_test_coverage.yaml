@@ -19,7 +19,7 @@ on:
         required: true
 
 env:
-  GOPRIVATE: github.com/Fiinco
+  GOPRIVATE: github.com/Legalbank
   AWS_REGION: disabled #to do: manter isto?
   DB_HOSTNAME: localhost
   DB_PORT: 5432
@@ -65,7 +65,7 @@ jobs:
 
       - name: Grant access to private Go Modules
         if: ${{ success() }}
-        run: git config --global url."https://fiinco:${{ secrets.github-token }}@github.com/Fiinco".insteadOf "https://github.com/Fiinco"
+        run: git config --global url."https://legalbank:${{ secrets.github-token }}@github.com/Legalbank".insteadOf "https://github.com/Legalbank"
 
       - name: Get dependencies
         if: ${{ success() }}
@@ -79,7 +79,7 @@ jobs:
         if: ${{ success() && (inputs.sql-repository != '') }}
         uses: actions/checkout@v4
         with:
-          repository: Fiinco/${{ inputs.sql-repository }}
+          repository: Legalbank/${{ inputs.sql-repository }}
           token: ${{ secrets.github-token }}
           path: .sql-migration-repo
           sparse-checkout: sql

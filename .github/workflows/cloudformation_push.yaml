@@ -17,7 +17,7 @@ on:
 
 jobs:
   cloudformation-push:
-    uses: Fiinco/github-workflows/.github/workflows/cloudformation_deploy.yaml@main
+    uses: Legalbank/github-workflows/.github/workflows/cloudformation_deploy.yaml@main
     with:
       cloudformation-filename: ${{ inputs.cloudformation-filename }}
     secrets:

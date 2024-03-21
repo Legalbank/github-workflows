@@ -19,7 +19,7 @@ on:
 
 jobs:
   golang-release:
-    uses: Fiinco/github-workflows/.github/workflows/golang_build_to_ecr.yaml@main
+    uses: Legalbank/github-workflows/.github/workflows/golang_build_to_ecr.yaml@main
     with:
       cmd-name: ${{ inputs.cmd-name }}
       version: ${{ inputs.version }}

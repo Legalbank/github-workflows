@@ -12,7 +12,7 @@ on:
         required: true
 
 env:
-  GOPRIVATE: github.com/Fiinco
+  GOPRIVATE: github.com/Legalbank
   GOPROXY: file://${{ github.workspace }}/go-modules/public
 
 jobs:
@@ -31,12 +31,12 @@ jobs:
 
       - name: Grant access to private Go Modules
         if: ${{ success() }}
-        run: git config --global url."https://fiinco:${{ secrets.github-token }}@github.com/Fiinco".insteadOf "https://github.com/Fiinco"
+        run: git config --global url."https://legalbank:${{ secrets.github-token }}@github.com/Legalbank".insteadOf "https://github.com/Legalbank"
 
       - name: Checkout private goproxy repo
         uses: actions/checkout@v4
         with:
-          repository: Fiinco/governance-goproxy
+          repository: Legalbank/governance-goproxy
           token: ${{ secrets.github-token }}
           path: go-modules
 

@@ -8,4 +8,4 @@ on:
 
 jobs:
   migration_test:
-    uses: Fiinco/github-workflows/.github/workflows/db_sql_migration_test.yaml@main
+    uses: Legalbank/github-workflows/.github/workflows/db_sql_migration_test.yaml@main
